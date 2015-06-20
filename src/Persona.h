@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <string.h>
+#include <stdio.h>
+
 
 using namespace std;
 
@@ -26,8 +28,10 @@ public:
 	void setTelefono(string telefono);
 
 	string serialize();
+	static Persona deserialize(string str);
 
 private:
+	Persona();
 	char nombre[61];
 	char direccion[120];
 	char telefono[13];

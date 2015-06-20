@@ -13,6 +13,9 @@ Persona::Persona(string nombre, string direccion, string telefono) {
 	strcpy(this->telefono , telefono.c_str());
 }
 
+Persona::Persona(){
+}
+
 Persona::~Persona() {
 }
 
@@ -42,4 +45,17 @@ void Persona::setTelefono(string telefono){
 
 string Persona::serialize(){
 	return this->getNombre() + "|" + this->getDireccion() + "|" + this->getTelefono();
+}
+
+Persona Persona::deserialize(string str){
+	Persona p = Persona();
+	char nombre[61];
+	char direccion[120];
+	char telefono[13];
+
+	sscanf( str.c_str(), "%s|%s|%s", nombre, direccion, telefono);
+	p.setNombre(string(nombre));
+	p.setDireccion(string(direccion));
+	p.setTelefono(string(telefono));
+	return p;
 }
