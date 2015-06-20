@@ -47,15 +47,27 @@ string Persona::serialize(){
 	return this->getNombre() + "|" + this->getDireccion() + "|" + this->getTelefono();
 }
 
-Persona Persona::deserialize(string str){
-	Persona p = Persona();
-	char nombre[61];
-	char direccion[120];
-	char telefono[13];
+vector<string> split(const string &s, char delim) {
+    stringstream ss(s);
+    string item;
+    vector<string> tokens;
+    while (getline(ss, item, delim)) {
+        tokens.push_back(item);
+    }
+    return tokens;
+}
 
-	sscanf( str.c_str(), "%s|%s|%s", nombre, direccion, telefono);
-	p.setNombre(string(nombre));
-	p.setDireccion(string(direccion));
-	p.setTelefono(string(telefono));
+Persona Persona::deserialize(string str){
+	vector<string> att = split(str,'|');
+
+	if (att.size() != 3){
+//		throw ERRRRRRRRRRRRRRRROR
+	}
+
+	Persona p = Persona();
+
+	p.setNombre(att[0]);
+	p.setDireccion(att[1]);
+	p.setTelefono(att[2]);
 	return p;
 }
