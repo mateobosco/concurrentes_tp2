@@ -37,6 +37,10 @@ private:
 	char nombre[61];
 	char direccion[120];
 	char telefono[13];
+
+	static string delimiterString;
+	static char delimiterChar;
+
 };
 
 #endif /* PERSONA_H_ */

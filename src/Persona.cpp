@@ -7,6 +7,9 @@
 
 #include "Persona.h"
 
+string Persona::delimiterString = "|";
+char Persona::delimiterChar = '|';
+
 Persona::Persona(string nombre, string direccion, string telefono) {
 	strcpy(this->nombre , nombre.c_str());
 	strcpy(this->direccion , direccion.c_str());
@@ -44,7 +47,11 @@ void Persona::setTelefono(string telefono){
 }
 
 string Persona::serialize(){
-	return this->getNombre() + "|" + this->getDireccion() + "|" + this->getTelefono();
+	return 	this->getNombre() +
+			Persona::delimiterString +
+			this->getDireccion() +
+			Persona::delimiterString +
+			this->getTelefono();
 }
 
 vector<string> split(const string &s, char delim) {
@@ -58,7 +65,7 @@ vector<string> split(const string &s, char delim) {
 }
 
 Persona Persona::deserialize(string str){
-	vector<string> att = split(str,'|');
+	vector<string> att = split(str , Persona::delimiterChar);
 
 	if (att.size() != 3){
 //		throw ERRRRRRRRRRRRRRRROR
