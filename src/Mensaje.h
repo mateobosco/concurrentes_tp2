@@ -13,7 +13,7 @@ typedef struct mensaje{
 	long to;
 	long from;
 	int op;
-	char body[16];
+	char body[255];
 }Mensaje;
 
 

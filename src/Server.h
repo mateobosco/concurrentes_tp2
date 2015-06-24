@@ -12,6 +12,7 @@
 
 #include "structures/Cola.h"
 #include "Mensaje.h"
+#include "Database.h"
 
 class Server {
 public:
@@ -20,7 +21,11 @@ public:
 
 	void run();
 
+	static int id;
 private:
+	void procesar(Mensaje m);
+
+	Database* db;
 	Cola<Mensaje>* cola;
 };
 

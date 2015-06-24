@@ -14,16 +14,20 @@
 
 #include "structures/Cola.h"
 #include "Mensaje.h"
+#include "Persona.h"
+#include "Server.h"
 
 class Cliente {
 public:
 	Cliente();
 	virtual ~Cliente();
 
-	void run();
-	Mensaje getFromInput();
+	void run();;
 
 private:
+	Mensaje getMensajeFromInput();
+	Persona getPersonaFromInput();
+
 	Cola<Mensaje>* cola;
 	int id;
 };

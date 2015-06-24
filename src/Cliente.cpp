@@ -19,7 +19,7 @@ Cliente::~Cliente() {
 void Cliente::run(){
 
 	while(true){
-		Mensaje m = getFromInput();
+		Mensaje m = this->getMensajeFromInput();
 		if (m.op == 3) break;
 		int resEscribir = this->cola->escribir(m);
 		std::cout<<"CLIENTE: escribi en la cola con res" << resEscribir <<std::endl;
@@ -29,19 +29,38 @@ void Cliente::run(){
 	}
 }
 
-Mensaje Cliente::getFromInput(){
+Mensaje Cliente::getMensajeFromInput(){
 	Mensaje m = Mensaje();
-	m.to = 1;
+	m.to = Server::id;
 	int op = 0;
 	while (op < 1 || op > 3){
-		std::cout<<"Ingrese el numero de opearacion que desea realizar"<<std::endl;
 		std::cout<<"1 - Leer base de datos"<<std::endl;
 		std::cout<<"2 - Agregar a la base de datos"<<std::endl;
 		std::cout<<"3 - Salir"<<std::endl;
+		std::cout<<"Ingrese el numero de opearacion que desea realizar: ";
 		std::cin >> op;
 		std::cout<<"Elegiste " << op <<std::endl;
+		if (op == 2){
+			Persona p = this->getPersonaFromInput();
+			strcpy(m.body,p.serialize().c_str());
+		}
 	}
 	m.op = op;
 	m.from = this->id;
 	return m;
+}
+
+Persona Cliente::getPersonaFromInput(){
+	std::string nombre;
+	std::cout<<"Ingrese el nombre: ";
+	std::getline(std::cin, nombre);
+	std::getline(std::cin, nombre);
+	std::string direccion;
+	std::cout<<"Ingrese la direccion: ";
+	std::getline(std::cin, direccion);
+	std::string telefono;
+	std::cout<<"Ingrese el telefono: ";
+	std::getline(std::cin, telefono);
+
+	return Persona(nombre,direccion,telefono);
 }
