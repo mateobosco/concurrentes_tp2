@@ -10,6 +10,7 @@
 #include <gtest/gtest.h>
 
 #include "Server.h"
+#include "Cliente.h"
 
 using namespace std;
 
@@ -17,7 +18,14 @@ int main(int argc, char **argv) {
 	//testing::InitGoogleTest(&argc, argv);
 	//return RUN_ALL_TESTS();
 
-	Server s = Server();
-	s.run();
+	if (argc > 1){
+		Cliente c = Cliente();
+		c.run();
+	}
+	else{
+		Server s = Server();
+		s.run();
+	}
+
 	return 0;
 }

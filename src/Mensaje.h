@@ -10,8 +10,10 @@
 
 
 typedef struct mensaje{
-	long dest;
-	char body[100];
+	long to;
+	long from;
+	int op;
+	char body[16];
 }Mensaje;
 
 

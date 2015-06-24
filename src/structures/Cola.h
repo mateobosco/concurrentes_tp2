@@ -5,7 +5,8 @@
 #include <sys/msg.h>
 #include <sys/ipc.h>
 #include <stdio.h>
-#include <string>
+#include <cstring>
+#include <errno.h>
 
 template <class T> class Cola {
 	private:
@@ -40,11 +41,17 @@ template <class T> int Cola<T> :: destruir () const {
 
 template <class T> int Cola<T> :: escribir ( const T& dato ) const {
 	int resultado = msgsnd ( this->id,static_cast<const void*>(&dato),sizeof(T)-sizeof(long),0 );
+	if (resultado == -1){
+		perror("Error en escribir");
+	}
 	return resultado;
 }
 
 template <class T> int Cola<T> :: leer ( const int tipo,T* buffer ) const {
 	int resultado = msgrcv ( this->id,static_cast<void *>(buffer),sizeof(T)-sizeof(long),tipo,0 );
+	if (resultado == -1){
+		perror("Error en leer");
+	}
 	return resultado;
 }
 
