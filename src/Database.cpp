@@ -51,7 +51,7 @@ bool Database::append(Persona p){
 	return true;
 }
 
-vector<Persona> Database::getVector(){
+vector<Persona> Database::getPersonasAsVector(){
 	int resLock = this->lockLectura->tomarLock();
 	if (resLock == -1){
 //		ver que carajo hacer TODO
@@ -73,13 +73,21 @@ vector<Persona> Database::getVector(){
 	return personas;
 }
 
-string Database::getString(){
-	vector<Persona> v = this->getVector();
+string Database::getPersonasAsString(){
+	vector<Persona> v = this->getPersonasAsVector();
 	size_t i;
 	stringstream ss;
 	for (i = 0 ; i < v.size() ; i++){
 		Persona p = v[i];
-		ss << "{" << p.serialize() << "}";
+		ss << Persona::personaDelimiterOpenString << p.serialize() << Persona::personaDelimiterCloseString;
 	}
 	return ss.str();
+}
+
+vector<Persona> Database::search(Persona query){
+	vector<Persona> personas = vector<Persona>();
+
+	//TODO Implementar
+
+	return personas;
 }

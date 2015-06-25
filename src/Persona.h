@@ -31,6 +31,12 @@ public:
 
 	string serialize();
 	static Persona deserialize(string str);
+	static vector<Persona> deserializeVector(string str);
+
+	static string personaDelimiterOpenString;
+	static char personaDelimiterOpenChar;
+	static string personaDelimiterCloseString;
+	static char personaDelimiterCloseChar;
 
 private:
 	Persona();
@@ -40,6 +46,7 @@ private:
 
 	static string delimiterString;
 	static char delimiterChar;
+
 
 };
 

@@ -24,8 +24,9 @@ public:
 	virtual ~Database();
 
 	bool append(Persona p);
-	vector<Persona> getVector();
-	string getString();
+	vector<Persona> search(Persona query);
+	string getPersonasAsString();
+	vector<Persona> getPersonasAsVector();
 
 private:
 	LockEscritura* lockEscritura;

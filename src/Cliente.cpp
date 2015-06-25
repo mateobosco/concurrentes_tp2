@@ -20,7 +20,7 @@ void Cliente::run(){
 
 	while(true){
 		Mensaje m = this->getMensajeFromInput();
-		if (m.op == 3) break;
+		if (m.op == 4) break;
 		int resEscribir = this->cola->escribir(m);
 		std::cout<<"CLIENTE: escribi en la cola con res" << resEscribir <<std::endl;
 		Mensaje respuesta = Mensaje();
@@ -34,10 +34,11 @@ Mensaje Cliente::getMensajeFromInput(){
 	Mensaje m = Mensaje();
 	m.to = Server::id;
 	int op = 0;
-	while (op < 1 || op > 3){
-		std::cout<<"1 - Leer base de datos"<<std::endl;
-		std::cout<<"2 - Agregar a la base de datos"<<std::endl;
-		std::cout<<"3 - Salir"<<std::endl;
+	while (op < 1 || op > 4){
+		std::cout<<"1 - Leer todos los registros de la base de datos"<<std::endl;
+		std::cout<<"2 - Buscar una persona"<<std::endl;
+		std::cout<<"3 - Agregar a la base de datos"<<std::endl;
+		std::cout<<"4 - Salir"<<std::endl;
 		std::cout<<"Ingrese el numero de opearacion que desea realizar: ";
 		std::cin >> op;
 		std::cout<<"Elegiste " << op <<std::endl;

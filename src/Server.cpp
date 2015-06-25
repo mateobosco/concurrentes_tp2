@@ -38,10 +38,14 @@ Mensaje Server::procesar(Mensaje m){
 	rta.to = m.from;
 	rta.from = Server::id;
 	if (m.op == 1){ //LEER DE LA BASE DE DATOS
-		string personas = this->db->getString();
+		string personas = this->db->getPersonasAsString();
 		strcpy(rta.body,personas.c_str());
 	}
-	else if (m.op == 2){ //AGREGAR A LA BASE DE DATOS
+	else if ( m.op == 2){ //BUSCAR
+		Persona pQuery = Persona::deserialize(string(m.body));
+		this->db->search(pQuery);
+	}
+	else if (m.op == 3){ //AGREGAR A LA BASE DE DATOS
 		string personaString = string(m.body);
 		Persona p = Persona::deserialize(personaString);
 		bool res = this->db->append(p);

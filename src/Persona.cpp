@@ -9,6 +9,10 @@
 
 string Persona::delimiterString = "|";
 char Persona::delimiterChar = '|';
+string Persona::personaDelimiterOpenString = "[";
+char Persona::personaDelimiterOpenChar = '{';
+string Persona::personaDelimiterCloseString = "}";
+char Persona::personaDelimiterCloseChar = '{';
 
 Persona::Persona(string nombre, string direccion, string telefono) {
 	strcpy(this->nombre , nombre.c_str());
@@ -77,4 +81,12 @@ Persona Persona::deserialize(string str){
 	p.setDireccion(att[1]);
 	p.setTelefono(att[2]);
 	return p;
+}
+
+vector<Persona> Persona::deserializeVector(string str){
+	vector<Persona> personas = vector<Persona>();
+
+	//TODO Implementar
+
+	return personas;
 }
