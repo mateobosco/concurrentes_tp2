@@ -23,20 +23,30 @@ Server::~Server(){
 
 void Server::run(){
 	while (true){
-		std::cout<<"SERVER: esperando para leer de la cola"<<std::endl;
+		cout<<"SERVER: esperando para leer de la cola"<<endl;
 		Mensaje msj = Mensaje();
 		this->cola->leer(1,&msj);
-		std::cout<<"SERVER: Un cliente "<< msj.from<<" pidio op"<< msj.op <<std::endl;
-		this->procesar(msj);
+		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op"<< msj.op <<endl;
+		Mensaje rta = this->procesar(msj);
+		this->cola->escribir(rta);
+		cout<<"SERVER: respondio"<<endl;
 	}
 }
 
-void Server::procesar(Mensaje m){
+Mensaje Server::procesar(Mensaje m){
+	Mensaje rta = Mensaje();
+	rta.to = m.from;
+	rta.from = Server::id;
 	if (m.op == 1){ //LEER DE LA BASE DE DATOS
+		string personas = this->db->getString();
+		strcpy(rta.body,personas.c_str());
 	}
 	else if (m.op == 2){ //AGREGAR A LA BASE DE DATOS
-		std::string personaString = std::string(m.body);
+		string personaString = string(m.body);
 		Persona p = Persona::deserialize(personaString);
-		this->db->append(p);
+		bool res = this->db->append(p);
+		if (res) strcpy(rta.body, "OK");
+		else strcpy(rta.body, "ERROR");
 	}
+	return rta;
 }

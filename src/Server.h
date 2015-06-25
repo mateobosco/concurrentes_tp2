@@ -14,6 +14,8 @@
 #include "Mensaje.h"
 #include "Database.h"
 
+using namespace std;
+
 class Server {
 public:
 	Server();
@@ -23,7 +25,7 @@ public:
 
 	static int id;
 private:
-	void procesar(Mensaje m);
+	Mensaje procesar(Mensaje m);
 
 	Database* db;
 	Cola<Mensaje>* cola;

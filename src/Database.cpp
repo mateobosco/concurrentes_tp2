@@ -72,3 +72,14 @@ vector<Persona> Database::getVector(){
 
 	return personas;
 }
+
+string Database::getString(){
+	vector<Persona> v = this->getVector();
+	size_t i;
+	stringstream ss;
+	for (i = 0 ; i < v.size() ; i++){
+		Persona p = v[i];
+		ss << "{" << p.serialize() << "}";
+	}
+	return ss.str();
+}

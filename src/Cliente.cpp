@@ -26,6 +26,7 @@ void Cliente::run(){
 		Mensaje respuesta = Mensaje();
 		std::cout<<"CLIENTE: voy a leer"<<std::endl;
 		this->cola->leer(this->id,&respuesta);
+		std::cout<<"CLIENTE: lei este body" << string(respuesta.body) <<std::endl;
 	}
 }
 
