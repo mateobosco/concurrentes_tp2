@@ -23,10 +23,8 @@ public:
 	static string serializeVector(vector<Persona> vector);
 	static vector<Persona> deserializeVector(string str);
 
-	static string personaDelimiterOpenString;
-	static char personaDelimiterOpenChar;
-	static string personaDelimiterCloseString;
-	static char personaDelimiterCloseChar;
+	static string personaDelimiterString;
+	static char personaDelimiterChar;
 	static string delimiterString;
 	static char delimiterChar;
 

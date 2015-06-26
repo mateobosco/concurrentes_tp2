@@ -9,10 +9,8 @@
 
 string PersonaSerializer::delimiterString = "|";
 char PersonaSerializer::delimiterChar = '|';
-string PersonaSerializer::personaDelimiterOpenString = "[";
-char PersonaSerializer::personaDelimiterOpenChar = '{';
-string PersonaSerializer::personaDelimiterCloseString = "}";
-char PersonaSerializer::personaDelimiterCloseChar = '{';
+string PersonaSerializer::personaDelimiterString = "\n";
+char PersonaSerializer::personaDelimiterChar = '\n';
 
 string PersonaSerializer::serialize(Persona p){
 	return 	p.getNombre() +
@@ -37,7 +35,6 @@ Persona PersonaSerializer::deserialize(string str){
 	if (att.size() != 3){
 //		throw ERRRRRRRRRRRRRRRROR
 	}
-
 	Persona p = Persona(att[0], att[1], att[2]);
 	return p;
 }
@@ -47,15 +44,20 @@ string PersonaSerializer::serializeVector(vector<Persona> vector){
 	stringstream ss;
 	for (i = 0 ; i < vector.size() ; i++){
 		Persona p = vector[i];
-		ss << PersonaSerializer::personaDelimiterOpenString << PersonaSerializer::serialize(p) << PersonaSerializer::personaDelimiterCloseString;
+		ss << PersonaSerializer::serialize(p);
+		if (i < vector.size()-1){
+			ss << PersonaSerializer::personaDelimiterString;
+		}
 	}
 	return ss.str();
 }
 
 vector<Persona> PersonaSerializer::deserializeVector(string str){
 	vector<Persona> personas = vector<Persona>();
-
-	//TODO Implementar
-
+	vector<string> personasString = split(str , PersonaSerializer::personaDelimiterChar);
+	size_t i;
+	for (i = 0 ; i < personasString.size() ; i++){
+		personas.push_back(PersonaSerializer::deserialize(personasString[i]));
+	}
 	return personas;
 }
