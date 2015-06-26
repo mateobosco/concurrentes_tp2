@@ -8,12 +8,16 @@
 #ifndef SRC_MENSAJE_H_
 #define SRC_MENSAJE_H_
 
+class ConstantesMensaje{
+public:
+	static const int BODY_MENSAJE_SIZE = 50;
+};
 
 typedef struct mensaje{
 	long to;
 	long from;
 	int op;
-	char body[1024];
+	char body[ConstantesMensaje::BODY_MENSAJE_SIZE];
 }Mensaje;
 
 
