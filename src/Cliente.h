@@ -22,7 +22,8 @@ public:
 	Cliente();
 	virtual ~Cliente();
 
-	void run();;
+	void run();
+	Respuesta escuchar();
 
 private:
 	Cola<Mensaje>* cola;

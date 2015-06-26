@@ -17,6 +17,7 @@ typedef struct mensaje{
 	long to;
 	long from;
 	int op;
+	bool cont;
 	char body[ConstantesMensaje::BODY_MENSAJE_SIZE];
 }Mensaje;
 

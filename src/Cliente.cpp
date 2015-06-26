@@ -27,8 +27,19 @@ void Cliente::run(){
 
 		Mensaje respuesta = Mensaje();
 		std::cout<<"CLIENTE: voy a leer"<<std::endl;
-		this->cola->leer(this->id,&respuesta);
+		Respuesta rta = this->escuchar();
+//		this->cola->leer(this->id,&respuesta);
 
-		InputOutput::showMensaje(respuesta);
+		InputOutput::showRespuesta(rta);
 	}
+}
+
+Respuesta Cliente::escuchar(){
+	vector<Mensaje> mensajes = vector<Mensaje>();
+	Mensaje msj = Mensaje();
+	do{
+		this->cola->leer(this->id, &msj);
+		mensajes.push_back(msj);
+	}while(msj.cont);
+	return Respuesta(mensajes);
 }

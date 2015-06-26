@@ -50,9 +50,9 @@ Persona InputOutput::getPersona(){
 	return Persona(nombre,direccion,telefono);
 }
 
-void InputOutput::showMensaje(Mensaje m){
-	if (m.op == Operaciones::GET_ALL || m.op == Operaciones::SEARCH){
-		vector<Persona> personas = PersonaSerializer::deserializeVector(m.body);
+void InputOutput::showRespuesta(Respuesta rta){
+	if (rta.op == Operaciones::GET_ALL || rta.op == Operaciones::SEARCH){
+		vector<Persona> personas = PersonaSerializer::deserializeVector(rta.body);
 		InputOutput::showPersonaTitle();
 		for (size_t i = 0 ; i < personas.size() ; i ++){
 			InputOutput::showPersona(personas[i]);

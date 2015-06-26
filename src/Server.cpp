@@ -27,32 +27,40 @@ void Server::run(){
 		Mensaje msj = Mensaje();
 		this->cola->leer(1,&msj);
 		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op"<< msj.op <<endl;
-		Mensaje rta = this->procesar(msj);
-		this->cola->escribir(rta);
+		Respuesta rta = this->procesar(msj);
+		this->enviar(rta);
 		cout<<"SERVER: respondio"<<endl;
 	}
 }
 
-Mensaje Server::procesar(Mensaje m){
-	Mensaje rta = Mensaje();
-	rta.to = m.from;
-	rta.from = Server::id;
-	rta.op = m.op;
+Respuesta Server::procesar(Mensaje m){
+	string body;
 	if (m.op == Operaciones::GET_ALL){ //LEER DE LA BASE DE DATOS
 		string personas = PersonaSerializer::serializeVector(this->db->getPersonas());
-		strcpy(rta.body,personas.c_str());
+		body = string (personas.c_str());
 	}
 	else if ( m.op == Operaciones::SEARCH){ //BUSCAR
 		Persona pQuery = PersonaSerializer::deserialize(string(m.body));
 		string personas = PersonaSerializer::serializeVector(this->db->search(pQuery));
-		strcpy(rta.body,personas.c_str());
+		body = string(personas.c_str());
 	}
 	else if (m.op == Operaciones::ADD){ //AGREGAR A LA BASE DE DATOS
 		string personaString = string(m.body);
 		Persona p = PersonaSerializer::deserialize(personaString);
 		bool res = this->db->append(p);
-		if (res) strcpy(rta.body, "OK");
-		else strcpy(rta.body, "ERROR");
+		if (res) body =  "OK";
+		else body = "ERROR";
 	}
-	return rta;
+	else{
+		body = "ERROR";
+	}
+	return Respuesta(m.from, m.to, m.op, body);
+}
+
+void Server::enviar(Respuesta rta){
+	vector<Mensaje> mensajes = rta.getMensajes();
+	for (size_t i = 0; i < mensajes.size(); i++){
+		Mensaje mensaje = mensajes[i];
+		this->cola->escribir(mensaje);
+	}
 }

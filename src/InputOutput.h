@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-#include "Mensaje.h"
+#include "Respuesta.h"
 #include "Server.h"
 #include "Operaciones.h"
 
@@ -22,7 +22,7 @@ public:
 	static Mensaje getMensaje(long from);
 	static Persona getPersona();
 
-	static void showMensaje(Mensaje mensaje);
+	static void showRespuesta(Respuesta rta);
 	static void showPersona(Persona p);
 	static void showPersonaTitle();
 };

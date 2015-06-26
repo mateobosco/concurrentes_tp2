@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include "structures/Cola.h"
-#include "Mensaje.h"
+#include "Respuesta.h"
 #include "Database.h"
 #include "Operaciones.h"
 
@@ -23,10 +23,11 @@ public:
 	virtual ~Server();
 
 	void run();
+	void enviar(Respuesta rta);
 
 	static int id;
 private:
-	Mensaje procesar(Mensaje m);
+	Respuesta procesar(Mensaje m);
 
 	Database* db;
 	Cola<Mensaje>* cola;
