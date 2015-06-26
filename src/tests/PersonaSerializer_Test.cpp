@@ -44,6 +44,6 @@ TEST(PersonaSerializerTest, TestSerializeVectorOfTwoPersonas){
 
 TEST(PersonaSerializerTest, TestDeserializeAndSerializeVectorOfTwoPersonas){
 	string serialized = "Pepe|Santa Fe 1234 4to B|4444-4444\nJose|Corrientes 124 3to A|5555-5555";
-	ASSERT_EQ(serialized, PersonaSerializer::serialize(PersonaSerializer::deserialize(serialized)));
+	ASSERT_EQ(serialized, PersonaSerializer::serializeVector(PersonaSerializer::deserializeVector(serialized)));
 }
 
