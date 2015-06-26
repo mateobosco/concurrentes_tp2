@@ -13,6 +13,7 @@
 #include "structures/Cola.h"
 #include "Mensaje.h"
 #include "Database.h"
+#include "Operaciones.h"
 
 using namespace std;
 

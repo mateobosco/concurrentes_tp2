@@ -32,10 +32,13 @@ vector<string> split(const string &s, char delim) {
 
 Persona PersonaSerializer::deserialize(string str){
 	vector<string> att = split(str , PersonaSerializer::delimiterChar);
-	if (att.size() != 3){
-//		throw ERRRRRRRRRRRRRRRROR
+	if (att.size() == 2){
+		att.push_back("");
 	}
-	Persona p = Persona(att[0], att[1], att[2]);
+	string nombre = att[0];
+	string direccion = att[1];
+	string telefono = att[2];
+	Persona p = Persona(nombre, direccion, telefono);
 	return p;
 }
 

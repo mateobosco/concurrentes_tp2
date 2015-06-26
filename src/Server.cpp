@@ -37,15 +37,17 @@ Mensaje Server::procesar(Mensaje m){
 	Mensaje rta = Mensaje();
 	rta.to = m.from;
 	rta.from = Server::id;
-	if (m.op == 1){ //LEER DE LA BASE DE DATOS
+	rta.op = m.op;
+	if (m.op == Operaciones::GET_ALL){ //LEER DE LA BASE DE DATOS
 		string personas = PersonaSerializer::serializeVector(this->db->getPersonas());
 		strcpy(rta.body,personas.c_str());
 	}
-	else if ( m.op == 2){ //BUSCAR
+	else if ( m.op == Operaciones::SEARCH){ //BUSCAR
 		Persona pQuery = PersonaSerializer::deserialize(string(m.body));
-		this->db->search(pQuery);
+		string personas = PersonaSerializer::serializeVector(this->db->search(pQuery));
+		strcpy(rta.body,personas.c_str());
 	}
-	else if (m.op == 3){ //AGREGAR A LA BASE DE DATOS
+	else if (m.op == Operaciones::ADD){ //AGREGAR A LA BASE DE DATOS
 		string personaString = string(m.body);
 		Persona p = PersonaSerializer::deserialize(personaString);
 		bool res = this->db->append(p);

@@ -13,7 +13,7 @@
 #include <iostream>
 
 #include "structures/Cola.h"
-#include "Mensaje.h"
+#include "InputOutput.h"
 #include "PersonaSerializer.h"
 #include "Server.h"
 
@@ -25,9 +25,6 @@ public:
 	void run();;
 
 private:
-	Mensaje getMensajeFromInput();
-	Persona getPersonaFromInput();
-
 	Cola<Mensaje>* cola;
 	int id;
 };
