@@ -14,7 +14,7 @@
 
 #include "structures/LockEscritura.h"
 #include "structures/LockLectura.h"
-#include "Persona.h"
+#include "PersonaSerializer.h"
 
 using namespace std;
 
@@ -25,8 +25,7 @@ public:
 
 	bool append(Persona p);
 	vector<Persona> search(Persona query);
-	string getPersonasAsString();
-	vector<Persona> getPersonasAsVector();
+	vector<Persona> getPersonas();
 
 private:
 	LockEscritura* lockEscritura;

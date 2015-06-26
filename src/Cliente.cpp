@@ -44,7 +44,7 @@ Mensaje Cliente::getMensajeFromInput(){
 		std::cout<<"Elegiste " << op <<std::endl;
 		if (op == 2){
 			Persona p = this->getPersonaFromInput();
-			strcpy(m.body,p.serialize().c_str());
+			strcpy(m.body,PersonaSerializer::serialize(p).c_str());
 		}
 	}
 	m.op = op;

@@ -9,14 +9,15 @@
 #include <iostream>
 
 #include "../Database.h"
+#include "../PersonaSerializer.h"
 
 TEST(DatabaseTest, TestPut1Persona){
 	Database db = Database();
 	Persona p = Persona("Pepe","Santa Fe 1234 4to B", "4444-4444");
 	ASSERT_TRUE(db.append(p));
-	vector<Persona> personas = db.getPersonasAsVector();
+	vector<Persona> personas = db.getPersonas();
 	ASSERT_EQ(1, personas.size());
-	ASSERT_EQ(p.serialize(), personas[0].serialize());
+	ASSERT_EQ(PersonaSerializer::serialize(p), PersonaSerializer::serialize(personas[0]));
 }
 
 

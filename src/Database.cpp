@@ -36,7 +36,7 @@ bool Database::append(Persona p){
 	if (resLock == -1){
 		return false;
 	}
-	string personaSerialized = p.serialize() + "\n";
+	string personaSerialized = PersonaSerializer::serialize(p) + "\n";
 
 	int resWrite = fputs(personaSerialized.c_str(), this->dbFileAppend);
 	fflush(this->dbFileAppend);
@@ -51,7 +51,7 @@ bool Database::append(Persona p){
 	return true;
 }
 
-vector<Persona> Database::getPersonasAsVector(){
+vector<Persona> Database::getPersonas(){
 	int resLock = this->lockLectura->tomarLock();
 	if (resLock == -1){
 //		ver que carajo hacer TODO
@@ -62,7 +62,7 @@ vector<Persona> Database::getPersonasAsVector(){
 	rewind(this->dbFileRead);
 	while ((fscanf(this->dbFileRead, "%[^\n]", line)) != EOF){
 		fgetc(this->dbFileRead);
-		Persona p = Persona::deserialize(string(line));
+		Persona p = PersonaSerializer::deserialize(string(line));
 		personas.push_back(p);
 	}
 	resLock = this->lockLectura->liberarLock();
@@ -71,17 +71,6 @@ vector<Persona> Database::getPersonasAsVector(){
 	}
 
 	return personas;
-}
-
-string Database::getPersonasAsString(){
-	vector<Persona> v = this->getPersonasAsVector();
-	size_t i;
-	stringstream ss;
-	for (i = 0 ; i < v.size() ; i++){
-		Persona p = v[i];
-		ss << Persona::personaDelimiterOpenString << p.serialize() << Persona::personaDelimiterCloseString;
-	}
-	return ss.str();
 }
 
 vector<Persona> Database::search(Persona query){

@@ -14,7 +14,7 @@
 
 #include "structures/Cola.h"
 #include "Mensaje.h"
-#include "Persona.h"
+#include "PersonaSerializer.h"
 #include "Server.h"
 
 class Cliente {

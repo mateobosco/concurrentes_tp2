@@ -38,16 +38,16 @@ Mensaje Server::procesar(Mensaje m){
 	rta.to = m.from;
 	rta.from = Server::id;
 	if (m.op == 1){ //LEER DE LA BASE DE DATOS
-		string personas = this->db->getPersonasAsString();
+		string personas = PersonaSerializer::serializeVector(this->db->getPersonas());
 		strcpy(rta.body,personas.c_str());
 	}
 	else if ( m.op == 2){ //BUSCAR
-		Persona pQuery = Persona::deserialize(string(m.body));
+		Persona pQuery = PersonaSerializer::deserialize(string(m.body));
 		this->db->search(pQuery);
 	}
 	else if (m.op == 3){ //AGREGAR A LA BASE DE DATOS
 		string personaString = string(m.body);
-		Persona p = Persona::deserialize(personaString);
+		Persona p = PersonaSerializer::deserialize(personaString);
 		bool res = this->db->append(p);
 		if (res) strcpy(rta.body, "OK");
 		else strcpy(rta.body, "ERROR");
