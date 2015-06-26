@@ -42,3 +42,9 @@ string Persona::getTelefono(){
 void Persona::setTelefono(string telefono){
 	strcpy(this->telefono , telefono.c_str());
 }
+
+bool Persona::similar(Persona p){
+	return (this->getNombre() == p.getNombre() ||
+		this->getTelefono() == p.getTelefono() ||
+		this->getDireccion() == p.getDireccion());
+}

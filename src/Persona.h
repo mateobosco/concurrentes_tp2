@@ -29,6 +29,8 @@ public:
 	string getTelefono();
 	void setTelefono(string telefono);
 
+	bool similar(Persona p);
+
 private:
 	Persona();
 	char nombre[61];

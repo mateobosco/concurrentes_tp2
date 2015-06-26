@@ -74,9 +74,25 @@ vector<Persona> Database::getPersonas(){
 }
 
 vector<Persona> Database::search(Persona query){
+	int resLock = this->lockLectura->tomarLock();
+	if (resLock == -1){
+//		ver que carajo hacer TODO
+	}
 	vector<Persona> personas = vector<Persona>();
+	char line[255];
 
-	//TODO Implementar
+	rewind(this->dbFileRead);
+	while ((fscanf(this->dbFileRead, "%[^\n]", line)) != EOF){
+		fgetc(this->dbFileRead);
+		Persona p = PersonaSerializer::deserialize(string(line));
+		if (p.similar(query)){
+			personas.push_back(p);
+		}
+	}
+	resLock = this->lockLectura->liberarLock();
+	if (resLock == -1){
+//		ver que carajo hacer TODO
+	}
 
 	return personas;
 }
