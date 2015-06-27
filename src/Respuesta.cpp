@@ -42,7 +42,7 @@ vector<Mensaje> Respuesta::getMensajes(){
 		m.to = this->to;
 		m.from = this->from;
 		m.op = this->op;
-		m.cont = (i == cant);
+		m.cont = (i != cant);
 		strcpy(m.body , body.c_str());
 		mensajes.push_back(m);
 	}
