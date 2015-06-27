@@ -11,13 +11,14 @@
 #include <iostream>
 
 #include "structures/Cola.h"
+#include "Proceso.h"
 #include "Respuesta.h"
 #include "Database.h"
 #include "Operaciones.h"
 
 using namespace std;
 
-class Server {
+class Server: public Proceso {
 public:
 	Server();
 	virtual ~Server();

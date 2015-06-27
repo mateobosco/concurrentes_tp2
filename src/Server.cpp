@@ -12,6 +12,7 @@ int Server::id = 1;
 Server::Server() {
 	this->db = new Database();
 	this->cola = new Cola<Mensaje>("files/cola", 'C');
+	this->changeName("Database-Server");
 }
 
 Server::~Server(){
@@ -22,7 +23,7 @@ Server::~Server(){
 }
 
 void Server::run(){
-	while (true){
+	while (sigint_handler.getGracefulQuit() == 0){
 		cout<<"SERVER: esperando para leer de la cola"<<endl;
 		Mensaje msj = Mensaje();
 		this->cola->leer(1,&msj);
