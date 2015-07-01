@@ -27,10 +27,11 @@ void Server::run(){
 		cout<<"SERVER: esperando para leer de la cola"<<endl;
 		Mensaje msj = Mensaje();
 		this->cola->leer(1,&msj);
-		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op"<< msj.op <<endl;
+
+		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op "<< msj.op <<endl;
 		Respuesta rta = this->procesar(msj);
+
 		this->enviar(rta);
-		cout<<"SERVER: respondio"<<endl;
 	}
 }
 
@@ -62,6 +63,6 @@ void Server::enviar(Respuesta rta){
 	vector<Mensaje> mensajes = rta.getMensajes();
 	for (size_t i = 0; i < mensajes.size(); i++){
 		Mensaje mensaje = mensajes[i];
-		this->cola->escribir(mensaje);
+		if (sigint_handler.getGracefulQuit() == 0) this->cola->escribir(mensaje);
 	}
 }

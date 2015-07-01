@@ -22,11 +22,9 @@ void Cliente::run(){
 		Mensaje m = InputOutput::getMensaje(this->id);
 		if (m.op == Operaciones::EXIT) break;
 
-		int resEscribir = this->cola->escribir(m);
-		std::cout<<"CLIENTE: escribi en la cola con res" << resEscribir <<std::endl;
+		this->cola->escribir(m);
 
 		Mensaje respuesta = Mensaje();
-		std::cout<<"CLIENTE: voy a leer"<<std::endl;
 		Respuesta rta = this->escuchar();
 
 		InputOutput::showRespuesta(rta);

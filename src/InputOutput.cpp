@@ -24,7 +24,6 @@ Mensaje InputOutput::getMensaje(long from){
 		std::cout<<"4 - "<< Operaciones::EXIT_STRING <<std::endl;
 		std::cout<<"Ingrese el numero de opearacion que desea realizar: ";
 		std::cin >> op;
-		std::cout<<"Elegiste " << op <<std::endl;
 		if (op == Operaciones::SEARCH || op == Operaciones::ADD){
 			Persona p = InputOutput::getPersona();
 			strcpy(m.body,PersonaSerializer::serialize(p).c_str());
@@ -53,11 +52,18 @@ Persona InputOutput::getPersona(){
 void InputOutput::showRespuesta(Respuesta rta){
 	if (rta.op == Operaciones::GET_ALL || rta.op == Operaciones::SEARCH){
 		vector<Persona> personas = PersonaSerializer::deserializeVector(rta.body);
+		std::cout<< "------------------------------------" << std::endl;
 		InputOutput::showPersonaTitle();
 		for (size_t i = 0 ; i < personas.size() ; i ++){
 			InputOutput::showPersona(personas[i]);
 		}
+		std::cout<< "------------------------------------" << std::endl;
 	}
+	if (rta.op == Operaciones::ADD){
+
+	}
+
+	std::cout<< "=======================================" << std::endl;
 }
 
 void InputOutput::showPersonaTitle(){
