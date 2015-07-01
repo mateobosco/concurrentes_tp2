@@ -36,6 +36,7 @@ template <class T> Cola<T> :: ~Cola () {
 
 template <class T> int Cola<T> :: destruir () const {
 	int resultado = msgctl ( this->id,IPC_RMID,NULL );
+	if (resultado == -1 ) perror("Error al destruir la cola");
 	return resultado;
 }
 

@@ -28,7 +28,6 @@ void Cliente::run(){
 		Mensaje respuesta = Mensaje();
 		std::cout<<"CLIENTE: voy a leer"<<std::endl;
 		Respuesta rta = this->escuchar();
-//		this->cola->leer(this->id,&respuesta);
 
 		InputOutput::showRespuesta(rta);
 	}

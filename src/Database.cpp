@@ -18,7 +18,7 @@ Database::Database() {
 	this->dbFileRead = fopen(Database::dbFilePath.c_str(),"r");
 
 	if (this->dbFileAppend == NULL || this->dbFileRead == NULL){
-		//CAGASTE TODO
+		perror("Error al abrir el archivo de la base de datos");
 	}
 }
 
@@ -52,10 +52,7 @@ bool Database::append(Persona p){
 }
 
 vector<Persona> Database::getPersonas(){
-	int resLock = this->lockLectura->tomarLock();
-	if (resLock == -1){
-//		ver que carajo hacer TODO
-	}
+	this->lockLectura->tomarLock();
 	vector<Persona> personas = vector<Persona>();
 	char line[255];
 
@@ -65,19 +62,14 @@ vector<Persona> Database::getPersonas(){
 		Persona p = PersonaSerializer::deserialize(string(line));
 		personas.push_back(p);
 	}
-	resLock = this->lockLectura->liberarLock();
-	if (resLock == -1){
-//		ver que carajo hacer TODO
-	}
+	this->lockLectura->liberarLock();
 
 	return personas;
 }
 
 vector<Persona> Database::search(Persona query){
-	int resLock = this->lockLectura->tomarLock();
-	if (resLock == -1){
-//		ver que carajo hacer TODO
-	}
+	this->lockLectura->tomarLock();
+
 	vector<Persona> personas = vector<Persona>();
 	char line[255];
 
@@ -89,10 +81,7 @@ vector<Persona> Database::search(Persona query){
 			personas.push_back(p);
 		}
 	}
-	resLock = this->lockLectura->liberarLock();
-	if (resLock == -1){
-//		ver que carajo hacer TODO
-	}
+	this->lockLectura->liberarLock();
 
 	return personas;
 }
