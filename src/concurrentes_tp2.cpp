@@ -9,7 +9,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
-#include "Server.h"
+#include "Listener.h"
 #include "Cliente.h"
 
 using namespace std;
@@ -23,9 +23,9 @@ int main(int argc, char **argv) {
 		c.run();
 	}
 	else{
-		Server s = Server();
-		s.run();
+		Listener l = Listener();
+		l.run();
 	}
-
+	wait(0);
 	return 0;
 }

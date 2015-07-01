@@ -9,30 +9,33 @@
 
 int Server::id = 1;
 
-Server::Server() {
-	this->db = new Database();
-	this->cola = new Cola<Mensaje>("files/cola", 'C');
-	this->changeName("Database-Server");
+Server::Server(Database* db, Cola<Mensaje>* cola) {
+	this->db = db;
+	this->cola = cola;
+	this->changeName("TP2 - Server");
 }
 
 Server::~Server(){
-	this->cola->destruir();
-	delete this->cola;
-
-	delete this->db;
 }
 
 void Server::run(){
 	while (sigint_handler.getGracefulQuit() == 0){
 		cout<<"SERVER: esperando para leer de la cola"<<endl;
-		Mensaje msj = Mensaje();
-		this->cola->leer(1,&msj);
+		Mensaje msj = this->leerPedido();
+
+		if (msj.op == Operaciones::EXIT) break;
 
 		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op "<< msj.op <<endl;
 		Respuesta rta = this->procesar(msj);
 
 		this->enviar(rta);
 	}
+}
+
+Mensaje Server::leerPedido(){
+	Mensaje msj = Mensaje();
+	if (sigint_handler.getGracefulQuit() == 0) this->cola->leer(1,&msj);
+	return msj;
 }
 
 Respuesta Server::procesar(Mensaje m){

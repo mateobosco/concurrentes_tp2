@@ -10,21 +10,24 @@
 Cliente::Cliente() {
 	this->id = getpid();
 	this->cola = new Cola<Mensaje>("files/cola",'C');
+	this->semaforoListener = new Semaforo("files/semaforoListener");
 }
 
 Cliente::~Cliente() {
 	delete this->cola;
+	delete this->semaforoListener;
 }
 
 void Cliente::run(){
-
+	this->semaforoListener->v();
+	std::cout<<"aumento el semaforo"<<std::endl;
 	while(true){
 		Mensaje m = InputOutput::getMensaje(this->id);
-		if (m.op == Operaciones::EXIT) break;
 
 		this->cola->escribir(m);
 
-		Mensaje respuesta = Mensaje();
+		if (m.op == Operaciones::EXIT) break;
+
 		Respuesta rta = this->escuchar();
 
 		InputOutput::showRespuesta(rta);

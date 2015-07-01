@@ -20,7 +20,7 @@ using namespace std;
 
 class Server: public Proceso {
 public:
-	Server();
+	Server(Database* db, Cola<Mensaje>* cola);
 	virtual ~Server();
 
 	void run();
@@ -28,6 +28,7 @@ public:
 
 	static int id;
 private:
+	Mensaje leerPedido();
 	Respuesta procesar(Mensaje m);
 
 	Database* db;

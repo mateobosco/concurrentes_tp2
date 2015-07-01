@@ -13,6 +13,7 @@
 #include <iostream>
 
 #include "structures/Cola.h"
+#include "structures/Semaforo.h"
 #include "InputOutput.h"
 #include "PersonaSerializer.h"
 #include "Server.h"
@@ -27,6 +28,7 @@ public:
 
 private:
 	Cola<Mensaje>* cola;
+	Semaforo* semaforoListener;
 	int id;
 };
 
