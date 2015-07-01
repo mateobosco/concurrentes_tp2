@@ -25,6 +25,11 @@ Listener::~Listener() {
 		delete this->cola;
 		delete this->db;
 		}
+	else{
+		delete this->semaforoListener;
+		delete this->cola;
+		delete this->db;
+	}
 	}
 
 void Listener::run(){
