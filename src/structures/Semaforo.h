@@ -20,6 +20,7 @@ public:
 	~Semaforo();
 
 	int p () const; // decrementa
+	int pN ( const int n) const; // decrementa N
 	int v () const; // incrementa
 	int vN ( const int n) const; // incrementa N
 	void eliminar () const;

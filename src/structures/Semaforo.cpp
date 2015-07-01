@@ -45,6 +45,19 @@ int Semaforo :: p () const {
 	return resultado;
 }
 
+int Semaforo :: pN (int n) const {
+
+	struct sembuf operacion;
+
+	operacion.sem_num = 0;	// numero de semaforo
+	operacion.sem_op  = -n;	// restar n al semaforo
+	operacion.sem_flg = SEM_UNDO;
+
+	int resultado = semop ( this->id,&operacion,1 );
+	if (resultado == -1 ) perror("Error en p()");
+	return resultado;
+}
+
 int Semaforo :: v () const {
 
 	struct sembuf operacion;

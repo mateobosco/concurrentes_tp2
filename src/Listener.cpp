@@ -8,7 +8,7 @@
 #include "Listener.h"
 
 Listener::Listener() {
-	this->semaforoListener = new Semaforo("files/semaforoListener",0);
+	this->semaforoListener = new Semaforo("files/semaforoListener", 1);
 	this->db = new Database();
 	this->cola = new Cola<Mensaje>("files/cola", 'C');
 
