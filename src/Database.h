@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <stdio.h>
-
+#include <fstream>
 
 #include "structures/LockEscritura.h"
 #include "structures/LockLectura.h"
@@ -28,6 +28,8 @@ public:
 	vector<Persona> getPersonas();
 
 private:
+	void createFile(std::string file);
+
 	LockEscritura* lockEscritura;
 	LockLectura* lockLectura;
 

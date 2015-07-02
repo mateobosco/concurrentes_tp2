@@ -16,7 +16,7 @@
 #include "structures/Semaforo.h"
 #include "InputOutput.h"
 #include "PersonaSerializer.h"
-#include "Server.h"
+#include "Listener.h"
 
 class Cliente {
 public:

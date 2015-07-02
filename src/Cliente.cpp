@@ -9,8 +9,8 @@
 
 Cliente::Cliente() {
 	this->id = getpid();
-	this->cola = new Cola<Mensaje>("files/cola",'C');
-	this->semaforoListener = new Semaforo("files/semaforoListener");
+	this->cola = new Cola<Mensaje>(Listener::colaFilePath.c_str(),'C');
+	this->semaforoListener = new Semaforo(Listener::semaforoFilePath.c_str());
 }
 
 Cliente::~Cliente() {
@@ -20,7 +20,6 @@ Cliente::~Cliente() {
 
 void Cliente::run(){
 	this->semaforoListener->v();
-	std::cout<<"aumento el semaforo"<<std::endl;
 	while(true){
 		Mensaje m = InputOutput::getMensaje(this->id);
 

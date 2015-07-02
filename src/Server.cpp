@@ -20,12 +20,10 @@ Server::~Server(){
 
 void Server::run(){
 	while (sigint_handler.getGracefulQuit() == 0){
-		cout<<"SERVER: esperando para leer de la cola"<<endl;
 		Mensaje msj = this->leerPedido();
 
 		if (msj.op == Operaciones::EXIT) break;
 
-		cout<<"SERVER: Un cliente "<< msj.from<<" pidio op "<< msj.op <<endl;
 		Respuesta rta = this->procesar(msj);
 
 		this->enviar(rta);

@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 #include "structures/Semaforo.h"
 #include "Server.h"
@@ -21,7 +22,12 @@ public:
 
 	void run();
 
+	static string colaFilePath;
+	static string semaforoFilePath;
+
 private:
+	void createFile(std::string file);
+
 	Cola<Mensaje>* cola;
 	Database* db;
 

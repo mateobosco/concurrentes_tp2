@@ -11,6 +11,7 @@ string Database::dbFilePath = "files/database.dat";
 string Database::lockFilePath = "files/lockFile";
 
 Database::Database() {
+	this->createFile(Database::lockFilePath.c_str());
 	this->lockLectura = new LockLectura(Database::lockFilePath);
 	this->lockEscritura = new  LockEscritura(Database::lockFilePath);
 
@@ -26,9 +27,10 @@ Database::~Database() {
 	fclose(this->dbFileAppend);
 	fclose(this->dbFileRead);
 
-	remove(Database::dbFilePath.c_str());
+//	remove(Database::dbFilePath.c_str());
 	delete this->lockLectura;
 	delete this->lockEscritura;
+	remove(Database::lockFilePath.c_str());
 }
 
 bool Database::append(Persona p){
@@ -84,4 +86,9 @@ vector<Persona> Database::search(Persona query){
 	this->lockLectura->liberarLock();
 
 	return personas;
+}
+
+void Database::createFile(std::string file){
+	std::ofstream outfile (file.c_str());
+	outfile.close();
 }
